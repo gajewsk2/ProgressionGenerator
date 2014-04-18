@@ -42,7 +42,7 @@ public final class ProgressionGenerator implements JMC, Interval {
         View.show(s);
 
         // write the score to a MIDIfile
-        Write.midi(s, "Progression.mid");
+        Write.midi(s, "ChordsAndBass.mid");
         Play.midi(s);
     }
 
