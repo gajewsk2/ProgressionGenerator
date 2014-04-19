@@ -1,8 +1,9 @@
 package com.micahgajewski.progressiongenerator.strategies;
 
-import com.micahgajewski.progressiongenerator.interfaces.IChordState;
+import com.micahgajewski.progressiongenerator.interfaces.IChordProbabilityState;
 import com.micahgajewski.progressiongenerator.interfaces.IProgressionStrategy;
 import com.micahgajewski.progressiongenerator.states.chordprobabilities.MajorFirstProbabilities;
+import com.micahgajewski.progressiongenerator.types.Progression;
 import jm.JMC;
 import jm.music.data.CPhrase;
 
@@ -11,7 +12,8 @@ import jm.music.data.CPhrase;
  */
 public class MajorTriadProgression implements IProgressionStrategy, JMC {
 
-    private IChordState state;
+    private IChordProbabilityState state;
+    private Progression name = Progression.MAJOR_TRIAD;
 
     public MajorTriadProgression(){
         state = new MajorFirstProbabilities();
@@ -19,8 +21,13 @@ public class MajorTriadProgression implements IProgressionStrategy, JMC {
 
     @Override
     public CPhrase getChord(int root, double duration) {
-        IChordState temp = state;
-        state = state.nextChord();
-        return temp.getChord(root, duration);
+        CPhrase chord = state.getChord(root, duration);
+        state = state.nextChord(name);
+        return chord;
+    }
+
+    @Override
+    public Progression getName() {
+        return name;
     }
 }

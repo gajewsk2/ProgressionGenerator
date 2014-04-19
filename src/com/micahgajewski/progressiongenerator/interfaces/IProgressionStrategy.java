@@ -1,5 +1,6 @@
 package com.micahgajewski.progressiongenerator.interfaces;
 
+import com.micahgajewski.progressiongenerator.types.Progression;
 import jm.music.data.CPhrase;
 
 /**
@@ -7,4 +8,5 @@ import jm.music.data.CPhrase;
  */
 public interface IProgressionStrategy {
     public CPhrase getChord(int root, double duration);
+    public Progression getName();
 }
