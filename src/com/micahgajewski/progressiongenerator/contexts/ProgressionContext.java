@@ -1,11 +1,14 @@
 package com.micahgajewski.progressiongenerator.contexts;
 
 import com.micahgajewski.progressiongenerator.interfaces.IProgressionStrategy;
+import jm.JMC;
+import jm.music.data.CPhrase;
+import jm.music.data.Part;
 
 /**
  * Created by Micah on 4/17/2014.
  */
-public class ProgressionContext {
+public class ProgressionContext implements JMC {
 
     private IProgressionStrategy strategy;
 
@@ -14,9 +17,14 @@ public class ProgressionContext {
         this.strategy = strategy;
     }
 
-    //use the strategy
-//    public void createArchive(ArrayList<File> files)
-//    {
-//        strategy.compressFiles(files);
-//    }
+    public Part createProgression(Part part , int numberOfChords, int root)
+    {
+        CPhrase chord = null;
+        for(int i = 0; i<numberOfChords; ++i){
+            chord = strategy.getChord(root, QN);
+            part.addCPhrase(chord);
+        }
+
+        return part;
+    }
 }

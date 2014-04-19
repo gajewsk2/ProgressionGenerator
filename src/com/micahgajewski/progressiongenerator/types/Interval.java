@@ -1,4 +1,4 @@
-package com.micahgajewski.progressiongenerator.statictype;
+package com.micahgajewski.progressiongenerator.types;
 
 /**
  * Created by Micah on 4/17/2014.

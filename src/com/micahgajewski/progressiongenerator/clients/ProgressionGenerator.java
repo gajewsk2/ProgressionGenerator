@@ -1,48 +1,46 @@
 package com.micahgajewski.progressiongenerator.clients;
 
 import com.micahgajewski.progressiongenerator.contexts.ProgressionContext;
-import com.micahgajewski.progressiongenerator.statictype.Interval;
+import com.micahgajewski.progressiongenerator.types.Interval;
+import com.micahgajewski.progressiongenerator.strategies.MajorTriadProgression;
 import jm.JMC;
-import jm.music.data.CPhrase;
 import jm.music.data.Part;
 import jm.music.data.Score;
 import jm.util.Play;
 import jm.util.View;
 import jm.util.Write;
+
 /**
  * Created by Micah on 4/17/2014.
  */
-public final class ProgressionGenerator implements JMC, Interval {
-    private  Score s = new Score("CPhrase class example");
-    private  Part p = new Part("Piano", 0, 0);
 
-    private double[] rhythms = new double[] {0.25, 0.5, 1.0, 2.0, 4.0};
+public final class ProgressionGenerator implements JMC, Interval {
+    private  Score s = new Score("Auto-Generated Progression");
+    private  Part p = new Part("Piano", 0, 0);
+//    private Phrase phrase = new Phrase(0.0);
+//    private double[] rhythms = new double[] {0.25, 0.25, 0.25, 0.25};
 
     public static void main(String[] args) {
-        ProgressionContext context = new ProgressionContext();
-//        context.setProgressionStrategy(new MajorProgression());
-        int a = AUGMENTED_UNISON;
-        System.out.print(a);
         new ProgressionGenerator();
     }
 
     public ProgressionGenerator() {
-//        for (int i = 0; i < 8; i++) {
-//            triad(C4);
-//        }
-//        Chords c = new Chords();
-        //pack the part into a score
-        CPhrase chord = new CPhrase();
-        int[] arr = {C4,C4+MAJOR_THIRD,C4+PERFECT_FIFTH};
-        chord.addChord(arr, rhythms[(int)(Math.random() * rhythms.length)]);
-        p.addCPhrase(chord);
+        ProgressionContext context = new ProgressionContext();
+        context.setProgressionStrategy(new MajorTriadProgression());
+        p = context.createProgression(p, 4, C4);
+
+//
+//        CPhrase chord = new CPhrase();
+//        int[] arr = {C4,C4+MAJOR_THIRD,C4+PERFECT_FIFTH};
+//        chord.addChord(arr, QN);
+//        p.addCPhrase(chord);
+//        int[] arr2 = {G4,G4+MAJOR_THIRD,G4+PERFECT_FIFTH};
+//        chord.addChord(arr2, QN);
+//        p.addCPhrase(chord);
+
         s.addPart(p);
-
-        //display the music
         View.show(s);
-
-        // write the score to a MIDIfile
-        Write.midi(s, "ChordsAndBass.mid");
+        Write.midi(s, "Progression.mid");
         Play.midi(s);
     }
 
