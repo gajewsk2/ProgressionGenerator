@@ -17,6 +17,7 @@ import jm.util.Write;
 public final class ProgressionGenerator implements JMC, Interval {
     private  Score s = new Score("Auto-Generated Progression");
     private  Part p = new Part("Piano", 0, 0);
+    private  Part p2 = new Part("Piano", 0, 0);
 
     public static void main(String[] args) {
         new ProgressionGenerator();
@@ -24,8 +25,10 @@ public final class ProgressionGenerator implements JMC, Interval {
 
     public ProgressionGenerator() {
         ProgressionContext context = new ProgressionContext();
-        context.setProgressionStrategy(new MajorTriadProgression());
-        p = context.createProgression(p, 1, C4);
+        context.setProgressionStrategy(new MajorTriadProgression(C4, QN));
+        p = context.createProgression(p, 4, C4, 4);
+        p2 = context.createProgression(p, 4, C4, 4);
+        s.addPart(p);
         s.addPart(p);
         View.notate(p);
         Write.midi(s, "Progression.mid");

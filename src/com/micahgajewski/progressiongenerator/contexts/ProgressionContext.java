@@ -17,12 +17,14 @@ public class ProgressionContext implements JMC {
         this.strategy = strategy;
     }
 
-    public Part createProgression(Part part , int numberOfChords, int root)
+    public Part createProgression(Part part , int numberOfChords, int root, int repetitions)
     {
         CPhrase chord = null;
         for(int i = 0; i<numberOfChords; ++i){
             chord = strategy.getChord(root, QN);
-            part.addCPhrase(chord);
+            for(int j = 0; j<repetitions; ++j) {
+                part.addCPhrase(chord);
+            }
         }
 
         return part;

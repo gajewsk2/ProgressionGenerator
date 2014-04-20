@@ -15,13 +15,13 @@ public class MajorTriadProgression implements IProgressionStrategy, JMC {
     private IChordProbabilityState state;
     private Progression name = Progression.MAJOR_TRIAD;
 
-    public MajorTriadProgression(){
-        state = new MajorFirstProbabilities();
+    public MajorTriadProgression(int root, double duration){
+        state = new MajorFirstProbabilities(root, duration);
     }
 
     @Override
     public CPhrase getChord(int root, double duration) {
-        CPhrase chord = state.getChord(root, duration);
+        CPhrase chord = state.getChord();
         state = state.nextChord(name);
         return chord;
     }
